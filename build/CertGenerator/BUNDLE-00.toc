@@ -1,0 +1,3 @@
+([('CertGenerator',
+   '/Users/tseshingfung/Desktop/programs/cert-generator/dist/CertGenerator',
+   'EXECUTABLE')],)

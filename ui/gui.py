@@ -15,25 +15,21 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtGui import QFontDatabase, QFont, QPixmap
 from PyQt6.QtCore import QSize
 from pathlib import Path
-from main import main
 
-# --- Ensure Qt platform plugin path is set ---
-qt_plugins = os.path.join(os.path.dirname(PyQt6.__file__), 'Qt6', 'plugins', 'platforms')
-os.environ["QT_QPA_PLATFORM_PLUGIN_PATH"] = qt_plugins
-print(f"[DEBUG] QT_QPA_PLATFORM_PLUGIN_PATH set to: {qt_plugins}")
+# No QT_QPA_PLATFORM_PLUGIN_PATH set here
 
 def resource_path(relative_path: str) -> str:
-    # For PyInstaller, _MEIPASS is the extraction dir
     base_path = getattr(sys, '_MEIPASS', os.path.abspath('.'))
     return os.path.join(base_path, relative_path)
 
 class CertGeneratorUI(QWidget):
-    def __init__(self):
+    def __init__(self, main_func):
         """
         Initialize the UI.
         """
         super().__init__()
         self.setWindowTitle("Certificate Generator")
+        self.main = main_func
         # Do not override background color here; let QSS handle it
 
         self.csv_path = None
@@ -161,7 +157,7 @@ class CertGeneratorUI(QWidget):
             self.status_label.setText("⚙️ Processing, please wait...")
             QApplication.processEvents()
 
-            saved_files = main(self.csv_path, self.template_path)
+            saved_files = self.main(self.csv_path, self.template_path)
 
             self.log_output.clear()
             self.log_output.append("✅ Certificates generated successfully:")
@@ -174,6 +170,7 @@ class CertGeneratorUI(QWidget):
 
 
 if __name__ == "__main__":
+    from main import main
     app = QApplication(sys.argv)
 
     font_path = Path(resource_path("ui/assets/noto-sans.ttf"))
@@ -196,7 +193,7 @@ if __name__ == "__main__":
         print(f"Warning: Failed to load style.qss - {e}")
 
     # Show main window
-    window = CertGeneratorUI()
+    window = CertGeneratorUI(main)
     window.show()
 
     sys.exit(app.exec())

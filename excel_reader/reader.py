@@ -58,6 +58,7 @@ def filter_eligible_attendees(attendee_list):
 
         duration = int(duration_str)
 
+        # Check if the email is already in the summary
         if email in attendee_summary:
             attendee_summary[email]["出席時間（分鐘）"] += duration
         else:
@@ -75,6 +76,10 @@ def filter_eligible_attendees(attendee_list):
         data for data in attendee_summary.values()
         if data["出席時間（分鐘）"] >= min_duration
     ]
+
+    # Add sequential ref to each eligible attendee
+    for idx, data in enumerate(eligible_attendees, 1):
+        data["ref"] = idx
 
     return eligible_attendees
 

@@ -57,6 +57,11 @@ def generate_certificates(template_path: str, eligible_attendees: list[dict]):
     docx_output_dir = str(Path.home() / "Downloads" / "certs" / "docx")
     os.makedirs(docx_output_dir, exist_ok=True)
 
+    # Capitalize the first letter of each word in the first name and uppercase last name
+    for attendee in eligible_attendees:
+        attendee["名字"] = " ".join(word.capitalize() for word in attendee["名字"].split(" "))
+        attendee["姓氏"] = attendee["姓氏"].upper()
+
     for idx, attendee in enumerate(eligible_attendees):
         try:
             ref_num = str(idx + 1).zfill(2)

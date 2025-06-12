@@ -1,19 +1,19 @@
 QWidget {
     background-color: #ffffff;
     font-size: 14px;
-    font-family: "Noto Sans", Arial, sans-serif;
+    font-family: "Noto Sans", Arial, Helvetica, sans-serif;
 }
 
 QLabel.text-label {
     color: #111111;
     font-size: 15px;
-    font-family: "Noto Sans", Arial, sans-serif;
+    font-family: "Noto Sans", Arial, Helvetica, sans-serif;
 }
 
 QTextEdit {
     color: #111111;
     font-size: 13px;
-    font-family: "Noto Sans", Arial, sans-serif;
+    font-family: "Noto Sans", Arial, Helvetica, sans-serif;
     border: none;
 }
 
@@ -22,7 +22,7 @@ QPushButton {
     color: white;
     padding: 6px 12px;
     border-radius: 6px;
-    font-family: "Noto Sans", Arial, sans-serif;
+    font-family: "Noto Sans", Arial, Helvetica, sans-serif;
     font-size: 14px;
 }
 QPushButton:hover {
